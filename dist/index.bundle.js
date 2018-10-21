@@ -16509,7 +16509,8 @@ module.exports = function spread(callback) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 
 
-const baseUrl = 'http://localhost/';
+//const baseUrl = 'http://localhost/';
+const baseUrl = 'http://140.114.91.198:11234/';
 
 function search(text) {
     let url = `${baseUrl}search/${text}`;

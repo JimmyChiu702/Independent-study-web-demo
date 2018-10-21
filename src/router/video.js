@@ -4,10 +4,10 @@ const path = require('path');
 
 const router = new koaRouter();
 
-router.get('/search', async (ctx, next) => {
+router.get('/search/:searchText', async (ctx, next) => {
     ctx.response.status = 200;
     ctx.response.type = 'text/plain';
-    ctx.response.body = await runPy();
+    ctx.response.body = await runPy(ctx.params.searchText);
 })
 
 router.get('/video/:videoName', async (ctx, next) => {
@@ -17,8 +17,9 @@ router.get('/video/:videoName', async (ctx, next) => {
 })
 
 async function runPy(searchText) {
+    var tags = searchText.split(' ');
     return new Promise((resolve, reject) => {
-        const pythonProg = require('child_process').spawn('python', [path.resolve(__dirname, '../python/run.py'), searchText]);
+        const pythonProg = require('child_process').spawn('python', [path.resolve(__dirname, '../python/run.py')].concat(tags));
 
         pythonProg.stdout.on('data', data => {
             resolve(data.toString());

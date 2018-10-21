@@ -16512,7 +16512,7 @@ module.exports = function spread(callback) {
 const baseUrl = 'http://localhost/';
 
 function search(text) {
-    let url = `${baseUrl}search?text=${text}`;
+    let url = `${baseUrl}search/${text}`;
     console.log(`Search with text: ${text}`);
     return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get(url, { timeout: 100000 }).then(res => {
         if (res.status !== 200) throw new Error(`Unexpected response code: ${res.status}`);
@@ -19435,7 +19435,7 @@ exports = module.exports = __webpack_require__(60)(undefined);
 
 
 // module
-exports.push([module.i, "#container{height:100%;width:100%;background-color:orange;position:absolute}#activeSearch,#inactiveSearch{position:absolute;left:50%;transition-timing-function:ease-in-out;transition:1s}#activeSearch{bottom:50vh}#inactiveSearch{bottom:20vh;z-index:999}#searchBox{padding:1rem 2rem;background-color:#fafafa;box-shadow:0 4px 8px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19);width:80vw;max-width:40rem;border-radius:5px;position:relative;left:-50%;transition:1s}#inactiveSearch>#searchBox{background-color:hsla(0,0%,98%,0);box-shadow:none}#input{font-size:1.5rem;line-height:2rem}#title-container{position:absolute;left:50%;top:20vh}#title,#title-none{position:relative;left:-50%;transition:1s}#title-none{color:transparent}#searchIcon{margin-top:1rem}#progressIconContainer{position:absolute;left:50%;top:40%}#progressIcon{position:relative;left:-50%}#playerContainer{position:absolute;left:50%;top:30%}#player,#tag-section-container{position:relative;left:-50%}.tag-item{text-align:center}#tag-section-box{position:absolute;left:50%;bottom:20vh;transition:1s}.show{opacity:1}.not-show{opacity:0}", ""]);
+exports.push([module.i, "#container{height:100%;width:100%;background-color:orange;position:absolute}#activeSearch,#inactiveSearch{position:absolute;left:50%;transition-timing-function:ease-in-out;transition:1s}#activeSearch{bottom:50vh}#inactiveSearch{bottom:20vh;z-index:999}#searchBox{padding:1rem 2rem;background-color:#fafafa;box-shadow:0 4px 8px 0 rgba(0,0,0,.2),0 6px 20px 0 rgba(0,0,0,.19);width:80vw;max-width:40rem;border-radius:5px;position:relative;left:-50%;transition:1s}#inactiveSearch>#searchBox{background-color:hsla(0,0%,98%,0);box-shadow:none}#input{font-size:1.5rem;line-height:2rem}#title-container{position:absolute;left:50%;top:20vh}#title,#title-none{position:relative;left:-50%;transition:1s}#title-none{color:transparent}#searchIcon{margin-top:1rem}#progressIconContainer{position:absolute;left:50%;top:40%}#progressIcon{position:relative;left:-50%;color:rgba(0,0,0,.54)}#playerContainer{position:absolute;left:50%;top:30%}#player,#tag-section-container{position:relative;left:-50%}.tag-item{text-align:center}#tag-section-box{position:absolute;left:50%;bottom:20vh;transition:1s}.show{opacity:1}.not-show{opacity:0}", ""]);
 
 // exports
 

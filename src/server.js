@@ -10,7 +10,7 @@ app.use(koaBody());
 app.use(koaStatic('./dist'))
 app.use(router.routes());
 
-const port = 80;
+const port = 11234;
 app.listen(port, () => {
     console.log(`Server is up and running on port ${port}`);
 })

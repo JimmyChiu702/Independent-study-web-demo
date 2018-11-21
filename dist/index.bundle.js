@@ -11515,15 +11515,15 @@ class Main extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
 
         this.state = {
             input: '',
-            isVideoLoaded: true,
+            isVideoLoaded: false,
             inputActive: true,
             isVideoShow: false,
             isTagShow: true,
             tabValue: 0,
             tagToShow: 0,
             modalOpen: false,
-            actionTag: ['flying', 'swimming', 'playing', 'fighting', 'drinking', 'sleeping', 'running', 'eating', 'walking'],
-            backgroundTag: ['sky', 'building', 'restaurent', 'court', 'dorm', 'grass', 'river', 'ocean', 'trees']
+            actionTag: ['BlowingCandles', 'WalkingWithDog', 'TrampolineJumping', 'Skiing', 'CliffDiving', 'BrushingTeeth', 'Biking'],
+            backgroundTag: ['lawn', 'raceway', 'driveway', 'television_room', 'soccer_field', 'fishpound', 'bathroom', 'ski_slope']
         };
 
         this.VideoUrl = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_18_api_search_js__["a" /* getVideoUrl */])();
@@ -11643,7 +11643,7 @@ class Main extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     __WEBPACK_IMPORTED_MODULE_4__material_ui_core_Typography___default.a,
                     { id: this.state.inputActive ? 'title' : 'title-none', variant: 'display4', gutterBottom: true, align: 'center' },
-                    '\u667A\u6167\u5F71\u50CF\u6DB5\u610F\u641C\u5C0B'
+                    'Search something !'
                 )
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -11655,7 +11655,7 @@ class Main extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                             this.handleModalToggle(true);
                         } },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_12__material_ui_icons_Movie___default.a, null),
-                    '\u539F\u59CB\u5F71\u7247'
+                    'Original video'
                 )
             ),
             __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
@@ -11663,11 +11663,13 @@ class Main extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                 { id: this.state.inputActive ? 'activeSearch' : 'inactiveSearch' },
                 __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                     'form',
-                    { id: 'searchBox', onSubmit: this.handleSubmit },
+                    { id: 'searchBox', onSubmit: event => {
+                            event.preventDefault();this.handleSubmit();
+                        } },
                     __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_1__material_ui_core_Input___default.a, {
                         id: 'input',
                         value: this.state.input,
-                        placeholder: 'Search something ......',
+                        placeholder: 'Search ...',
                         autoFocus: true,
                         fullWidth: true,
                         onClick: this.handleInputClick,
@@ -11701,7 +11703,7 @@ class Main extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             __WEBPACK_IMPORTED_MODULE_4__material_ui_core_Typography___default.a,
                             { variant: 'display3', gutterBottom: true, align: 'center' },
-                            '\u52D5\u4F5C'
+                            'Action'
                         ),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             __WEBPACK_IMPORTED_MODULE_7__material_ui_core_Grid___default.a,
@@ -11722,7 +11724,7 @@ class Main extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             __WEBPACK_IMPORTED_MODULE_4__material_ui_core_Typography___default.a,
                             { variant: 'display3', gutterBottom: true, align: 'center' },
-                            '\u80CC\u666F'
+                            'Background'
                         ),
                         __WEBPACK_IMPORTED_MODULE_0_react___default.a.createElement(
                             __WEBPACK_IMPORTED_MODULE_7__material_ui_core_Grid___default.a,
@@ -11747,12 +11749,11 @@ class Main extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
         this.setState({ input: event.target.value });
     }
 
-    handleSubmit(event) {
-        event.preventDefault();
-        if (!!this.state.input) {
-            this.setState({ inputActive: false, isVideoLoaded: true, isTagShow: false }, () => {
-                __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_18_api_search_js__["b" /* search */])(this.state.input, this.state.tagToShow).then(videoName => {
-                    console.log(`Set the video name: ${videoName}`);
+    handleSubmit(text = null) {
+        let searchText = !!text ? text : this.state.input;
+        if (!!searchText) {
+            this.setState({ inputActive: false, isVideoLoaded: false, isTagShow: false }, () => {
+                __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_18_api_search_js__["b" /* search */])(searchText, this.state.tagToShow).then(() => {
                     this.setState({ isVideoLoaded: true });
                 }).catch(err => {
                     console.error('Error happened during searching', err);
@@ -11769,11 +11770,7 @@ class Main extends __WEBPACK_IMPORTED_MODULE_0_react___default.a.Component {
     }
 
     handleTagToggle(tagText) {
-        this.setState(prevState => {
-            return {
-                input: !!prevState.input ? `${prevState.input} ${tagText}` : tagText
-            };
-        });
+        this.handleSubmit(tagText);
     }
 
     handleTabChange(event, value) {
@@ -20830,15 +20827,13 @@ module.exports = function spread(callback) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
 
 
-//const baseUrl = 'http://localhost:11234/';
-const baseUrl = 'http://140.114.91.198:11234/';
-
 function search(text, tagToShow) {
-    let url = `${baseUrl}search?searchText=${text}&tag=${!!tagToShow ? '1' : '0'}`;
-    console.log(`Search with text: ${text}`);
+    let url = `/search?searchText=${text}&mode=${!!tagToShow ? 'places' : 'action'}`;
+    console.log(`Search with url: ${url}`);
     return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.get(url, { timeout: 100000 }).then(res => {
+        console.log(res);
         if (res.status !== 200) throw new Error(`Unexpected response code: ${res.status}`);
-        return res.data;
+        return;
     }).catch(err => {
         console.log(err);
     });
